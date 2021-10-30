@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import { CardActionArea } from '@material-ui/core';
 import axios from "axios";
 import style from "./App.module.scss"
 import Grid from "@material-ui/core/Grid";
@@ -16,7 +17,7 @@ function App() {
   // }, [])
 
   useEffect(() => {
-    axios.get('https://finalspaceapi.com/api/v0/character/?limit=12')
+    axios.get('https://finalspaceapi.com/api/v0/character')
     .then(res => setData(res.data)) 
   },[])
 
@@ -32,6 +33,9 @@ function App() {
                   return<Grid item xs={12} sm={4} key={character.id}>
                     <div>
                       <Card className={style.charCard}>
+                      <CardActionArea onClick={()=> {
+                        console.log(character.name);
+                      }}>
                         <CardContent>
                         <Typography color="primary" gutterBottom variant="h5" center="true">
                           {character.name}
@@ -41,6 +45,7 @@ function App() {
                         </Typography>
                         </CardContent>
                         <CardMedia classNmae={style.charCardImg} image={character.img_url} style= {{height: "300px"}}/>
+                        </CardActionArea>
                       </Card>
                     </div>
                   </Grid>
